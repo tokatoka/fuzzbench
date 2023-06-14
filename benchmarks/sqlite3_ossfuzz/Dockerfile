@@ -26,3 +26,6 @@ RUN find $SRC/sqlite3 -name "*.test" | xargs zip $SRC/ossfuzz_seed_corpus.zip
 
 WORKDIR sqlite3
 COPY build.sh *.dict $SRC/
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

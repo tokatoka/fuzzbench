@@ -26,27 +26,40 @@ RUN apt-get update && \
     apt-get remove -y llvm-10 && \
     apt-get install -y \
         build-essential \
-        llvm-11 \
-        clang-12 && \
+        cargo && \
     apt-get install -y wget libstdc++5 libtool-bin automake flex bison \
         libglib2.0-dev libpixman-1-dev python3-setuptools unzip \
-        apt-utils apt-transport-https ca-certificates joe curl \
-        python3-dev gzip && \
-    PATH="/root/.cargo/bin/:$PATH" cargo install cargo-make
+        lsb-release wget software-properties-common gnupg \
+        apt-utils apt-transport-https ca-certificates joe curl nlohmann-json3-dev
 
-# Download libafl
-RUN git clone https://github.com/AFLplusplus/libafl_fuzzbench /libafl_fuzzbench && \
-    cd /libafl_fuzzbench && \
-    git checkout afb9bdf52c6a28262b8ad42f714ec0b748dd2f1a && \
-    git submodule update --init
+# LLVM
 
-# Compile libafl
-RUN cd /libafl_fuzzbench/ && unset CFLAGS && unset CXXFLAGS && \
-    export CC=clang && export CXX=clang++ && \
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN ./llvm.sh 15
+
+RUN apt install
+
+# COPY libafl.
+COPY ./LibAFL /libafl
+
+# Checkout a current commit
+# RUN cd /libafl && git checkout 8ff8ae41f1ed2956bb1e906c5c7bd0505ca110c0 || true
+# Note that due a nightly bug it is currently fixed to a known version on top!
+
+# Create analysis directory
+RUN mkdir /out/analysis && mkdir /out/ddg
+
+# Compile libafl.
+RUN cd /libafl && \
+    unset CFLAGS CXXFLAGS && \
     export LIBAFL_EDGES_MAP_SIZE=2621440 && \
-    PATH="/root/.cargo/bin/:$PATH"  cargo build --release --features no_link_main
+    export ANALYSIS_OUTPUT_PATH='/out/analysis' && \
+    export DDG_OUTPUT_PATH='/out/ddg' && \
+    cd ./fuzzers/fuzzbench && \
+    PATH="/root/.cargo/bin/:$PATH" cargo build --release --features no_link_main
 
 # Auxiliary weak references.
-RUN cd /libafl_fuzzbench && \
+RUN cd /libafl/fuzzers/fuzzbench && \
     clang -c stub_rt.c && \
     ar r /stub_rt.a stub_rt.o

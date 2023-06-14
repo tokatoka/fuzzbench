@@ -25,3 +25,6 @@ RUN git clone \
 
 WORKDIR php-src
 COPY build.sh *.options $SRC/
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

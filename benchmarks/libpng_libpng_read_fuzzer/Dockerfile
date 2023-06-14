@@ -40,3 +40,7 @@ RUN wget --no-check-certificate -qO $OUT/libpng_read_fuzzer.dict \
 
 ADD seeds /opt/seeds
 COPY * $SRC/
+
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

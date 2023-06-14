@@ -27,3 +27,7 @@ RUN git clone \
 
 WORKDIR openh264
 COPY build.sh decoder_fuzzer.cpp $SRC/
+
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

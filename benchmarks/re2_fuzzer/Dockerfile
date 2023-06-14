@@ -28,3 +28,6 @@ RUN git clone https://github.com/google/re2.git
 RUN wget -qO $OUT/fuzzer.dict \
     https://raw.githubusercontent.com/google/fuzzing/master/dictionaries/regexp.dict
 COPY build.sh target.cc $SRC/
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

@@ -29,3 +29,7 @@ RUN git clone https://gitlab.gnome.org/GNOME/libxml2.git
 
 WORKDIR libxml2
 COPY build.sh $SRC/
+
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

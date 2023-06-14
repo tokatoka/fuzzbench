@@ -28,3 +28,6 @@ RUN git clone \
     sed -i '119d;126d' $SRC/build.sh
 
 WORKDIR systemd
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

@@ -23,3 +23,6 @@ RUN git clone https://github.com/harfbuzz/harfbuzz.git
 
 WORKDIR harfbuzz
 COPY build.sh $SRC/
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

@@ -42,3 +42,7 @@ RUN cd seed-corpora && \
 RUN rm -rf seed-corpora
 
 COPY build.sh $SRC/
+
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

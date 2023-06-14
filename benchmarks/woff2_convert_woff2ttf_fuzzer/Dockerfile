@@ -37,3 +37,6 @@ RUN git clone https://github.com/google/oss-fuzz.git && \
 COPY target.cc build.sh $SRC/
 
 WORKDIR woff2
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

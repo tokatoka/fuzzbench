@@ -29,3 +29,6 @@ RUN wget -qO $OUT/cms_transform_fuzzer.dict \
     https://raw.githubusercontent.com/google/fuzzing/master/dictionaries/icc.dict
 COPY cms_transform_fuzzer.cc build.sh $SRC/
 ADD seeds /opt/seeds
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

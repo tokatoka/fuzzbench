@@ -28,3 +28,7 @@ RUN git clone --depth 1 https://github.com/google/boringssl.git boringssl
 RUN git clone --recursive https://github.com/openssl/openssl.git openssl
 WORKDIR mbedtls
 COPY build.sh $SRC/
+
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

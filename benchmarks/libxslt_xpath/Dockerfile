@@ -65,3 +65,6 @@ ENV ACLOCAL_PATH='/usr/share/aclocal/'
 
 WORKDIR libxslt
 COPY build.sh $SRC/
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

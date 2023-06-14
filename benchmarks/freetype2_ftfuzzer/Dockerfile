@@ -29,3 +29,6 @@ RUN git clone https://github.com/unicode-org/text-rendering-tests.git TRT
 RUN wget https://github.com/libarchive/libarchive/releases/download/v3.4.3/libarchive-3.4.3.tar.xz
 
 COPY * $SRC/
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt

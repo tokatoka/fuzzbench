@@ -32,3 +32,6 @@ RUN wget -qO $SRC/decode_fuzzer.cc \
 
 COPY build.sh $SRC/
 ADD seeds /opt/seeds
+COPY scan.py $SRC/
+
+RUN python3 $SRC/scan.py > $OUT/whitelist.txt
