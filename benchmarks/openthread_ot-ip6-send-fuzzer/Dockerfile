@@ -20,4 +20,4 @@ RUN apt-get update && apt-get install -y cmake ninja-build
 RUN git clone https://github.com/openthread/openthread
 
 WORKDIR openthread
-COPY build.sh *.options $SRC/
+COPY build.sh $SRC/

@@ -19,9 +19,9 @@ FROM gcr.io/oss-fuzz-base/base-builder@sha256:87ca1e9e19235e731fac8de8d1892ebe8d
 # Note that we don't use the system libxml2 but a custom instrumented build.
 # libgcrypt is required for the crypto extensions of libexslt.
 # Need to build M4-1.4.19, autoconf-2.71, automake-1.16.3 manually in Ubuntu:20.
-ENV M4_VERSION=1.4.19
-ENV AUTOCONF_VERSION=2.71
-ENV AUTOMAKE_VERSION=1.16.5
+ENV M4_VERSION 1.4.19
+ENV AUTOCONF_VERSION 2.71
+ENV AUTOMAKE_VERSION 1.16.5
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     make \
