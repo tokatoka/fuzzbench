@@ -19,7 +19,7 @@ apt-get update && apt-get install python3 python3-pip -y
 
 # This library can end up being linked to the fuzzer but it is not in the
 # runner Dockerfile.
-apt-get remove -y libfreetype6
+# apt-get remove -y libfreetype6
 
 python3 -m pip install --break-system-packages ninja meson
 
