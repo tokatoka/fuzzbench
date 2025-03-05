@@ -19,9 +19,9 @@ apt-get update && apt-get install python3 python3-pip -y
 
 # This library can end up being linked to the fuzzer but it is not in the
 # runner Dockerfile.
-apt-get remove -y libfreetype6
+# apt-get remove -y libfreetype6
 
-python3.8 -m pip install ninja meson==0.56.0
+python3 -m pip install --break-system-packages ninja meson
 
 # Disable:
 # 1. UBSan vptr since target built with -fno-rtti.
